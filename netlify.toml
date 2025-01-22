@@ -1,0 +1,21 @@
+[[headers]]
+  for = "/*"
+  [header.values]
+    X-Frame-Options= "ALLOWALL"
+  
+  for = "/.netlify/functions/*"  
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+
+[build]
+  functions = "./functions"
+  publish = "." 
+  command = "npm i"
+
+[build.environment]
+  NODE_VERSION = "20.11.0"
+
+[functions]
+  directory = "./functions"
