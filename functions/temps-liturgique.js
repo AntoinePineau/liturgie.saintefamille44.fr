@@ -113,7 +113,7 @@ function determinerTempsLiturgique(date, debug) {
   while (dimancheQuiSuitLEpiphanie.getDay() !== 0);
   if(debug) result['dimancheQuiSuitLEpiphanie'] = dimancheQuiSuitLEpiphanie.toLocaleDateString('fr');
 
-  var baptemeDuSeigneur = new Date(dimancheQuiSuitLEpiphanie.getFullYear(),dimancheQuiSuitLEpiphanie.getMonth(),dimancheQuiSuitLEpiphanie.getDate()+1);
+  var baptemeDuSeigneur = new Date(dimancheQuiSuitLEpiphanie.getFullYear(),dimancheQuiSuitLEpiphanie.getMonth(),dimancheQuiSuitLEpiphanie.getDate()+7);
   if(debug) result['baptemeDuSeigneur'] = baptemeDuSeigneur.toLocaleDateString('fr');
 
   var datePaques = calculerDatePaques(annee);
