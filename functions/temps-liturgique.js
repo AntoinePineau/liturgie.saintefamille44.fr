@@ -103,9 +103,10 @@ function determinerTempsLiturgique(date, debug) {
   var dateNoel = new Date(annee - 1, 11, 25);
   }
   if(debug) result['date1erDimancheAvent'] = dateAvent.toLocaleDateString('fr');
+  if(debug) result['dateNoel'] = dateNoel.toLocaleDateString('fr');
   anneeLiturgique = (anneeLiturgique % 3 === 0) ? "C" : ((anneeLiturgique % 3 === 1) ? "A" : "B");
 
-  var dimancheQuiSuitLEpiphanie = new Date(dateNoel.getFullYear()+1, 1, 1);
+  var dimancheQuiSuitLEpiphanie = new Date(dateNoel.getFullYear()+1, 0, 1);
   do {
     dimancheQuiSuitLEpiphanie.setDate(dimancheQuiSuitLEpiphanie.getDate() + 1);
   }
