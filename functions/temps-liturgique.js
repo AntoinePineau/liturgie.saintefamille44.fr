@@ -106,14 +106,14 @@ function determinerTempsLiturgique(date, debug) {
   if(debug) result['dateNoel'] = dateNoel.toLocaleDateString('fr');
   anneeLiturgique = (anneeLiturgique % 3 === 0) ? "C" : ((anneeLiturgique % 3 === 1) ? "A" : "B");
 
-  var dimancheQuiSuitLEpiphanie = new Date(dateNoel.getFullYear()+1, 0, 1);
+  var dimancheDeLEpiphanie = new Date(dateNoel.getFullYear()+1, 0, 1);
   do {
-    dimancheQuiSuitLEpiphanie.setDate(dimancheQuiSuitLEpiphanie.getDate() + 1);
+    dimancheDeLEpiphanie.setDate(dimancheDeLEpiphanie.getDate() + 1);
   }
-  while (dimancheQuiSuitLEpiphanie.getDay() !== 0);
-  if(debug) result['dimancheQuiSuitLEpiphanie'] = dimancheQuiSuitLEpiphanie.toLocaleDateString('fr');
+  while (dimancheDeLEpiphanie.getDay() !== 0);
+  if(debug) result['dimancheDeLEpiphanie'] = dimancheDeLEpiphanie.toLocaleDateString('fr');
 
-  var baptemeDuSeigneur = new Date(dimancheQuiSuitLEpiphanie.getFullYear(),dimancheQuiSuitLEpiphanie.getMonth(),dimancheQuiSuitLEpiphanie.getDate()+7);
+  var baptemeDuSeigneur = new Date(dimancheDeLEpiphanie.getFullYear(),dimancheDeLEpiphanie.getMonth(),dimancheDeLEpiphanie.getDate()+7);
   if(debug) result['baptemeDuSeigneur'] = baptemeDuSeigneur.toLocaleDateString('fr');
 
   var datePaques = calculerDatePaques(annee);
@@ -147,10 +147,10 @@ function determinerTempsLiturgique(date, debug) {
     else if(date.getTime()==new Date(date.getFullYear(),0,1).getTime()) { // 1er janvier
       numeroSemaine = 'Sainte Marie, Mère de Dieu';
     }
-    else if(date.getTime()==dimancheQuiSuitLEpiphanie.getTime()) { // Epiphanie
+    else if(date.getTime()==dimancheDeLEpiphanie.getTime()) { // Epiphanie
       numeroSemaine = 'L\'Epiphanie du Seigneur';
     }
-    else if(date.getTime()==baptemeDuSeigneur.getTime()) { // le lundi qui suit l'Epiphanie
+    else if(date.getTime()==baptemeDuSeigneur.getTime()) { // le dimanche qui suit l'Epiphanie
       numeroSemaine = 'Le Baptême du Seigneur';
     }
     else {
@@ -159,9 +159,9 @@ function determinerTempsLiturgique(date, debug) {
     }
   }
   // du dimanche qui suit le 6 janvier au mercredi des cendres exclus => temps ordinaire
-  else if(date>dimancheQuiSuitLEpiphanie && date<dateMercrediCendres) {
+  else if(date>dimancheDeLEpiphanie && date<dateMercrediCendres) {
     tempsLiturgique = "Ordinaire";
-    var nb = nbJours(dimancheQuiSuitLEpiphanie, date);
+    var nb = nbJours(dimancheDeLEpiphanie, date);
     numeroSemaine = Math.floor(nb / 7) + 1;
   }
   // du mercredi des cendres jusqu'à Pâques exclus => temps du carême

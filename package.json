@@ -9,6 +9,13 @@
   },
   "author": "Antoine Pineau",
   "license": "ISC",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "slicemachine": "start-slicemachine"
+  },
   "devDependencies": {
     "browser-sync": "^2.29.3",
     "express": "^4.16.4",
