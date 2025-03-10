@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 exports.handler = async function (event, context) {
   const { ref } = event.queryStringParameters;
   if(!ref) {
