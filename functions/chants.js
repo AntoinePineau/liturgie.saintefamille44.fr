@@ -1,5 +1,10 @@
 const lunr = require('lunr');
 
+/**
+ * Exemple
+ * https://liturgie.netlify.app/.netlify/functions/chants?texte=Christ%20est%20ressuscité
+ */
+
 exports.handler = async function (event, context) {
   const { texte, tag } = event.queryStringParameters;
   if(!texte && !tag) {

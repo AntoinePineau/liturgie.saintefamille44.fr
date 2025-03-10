@@ -1,3 +1,8 @@
+/** 
+ * Exemple:
+ * https://liturgie.netlify.app/.netlify/functions/temps-liturgique?date=06-04-2025
+ */
+
 exports.handler = async function (event, context) {
   const { date, debug } = event.queryStringParameters;
   const sep = '[- ,/_]';

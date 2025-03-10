@@ -1,5 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+
+/**
+ * Exemple
+ * https://liturgie.netlify.app/.netlify/functions/bible?ref=Is%2043,%2016-21
+ */
 
 exports.handler = async function (event, context) {
   const { ref } = event.queryStringParameters;
@@ -17,7 +23,7 @@ exports.handler = async function (event, context) {
   const { bookId, chapter, verseRanges } = parseReference(ref);
   console.log(`bookId : ${bookId}, chapter : ${chapter}, verseRanges : ${verseRanges}`);
   
-  const books = readJsonFile(path.join(__dirname, 'index/bible/livres.json'));
+  const books = readJsonFile('/index/bible/livres.json');
   let bookInfo = null;
   let sectionName = '';
   
@@ -42,7 +48,7 @@ exports.handler = async function (event, context) {
   }
   
   // Construire le chemin du fichier JSON du chapitre
-  const chapterPath = path.join(__dirname, `index/bible/${sectionName}/${bookId}/${chapter}.json`);
+  const chapterPath =`/index/bible/${sectionName}/${bookId}/${chapter}.json`;
   console.log(`chapter path : ${chapterPath}`);
   
   if (!fs.existsSync(chapterPath)) {
@@ -111,7 +117,7 @@ function parseReference(reference) {
 }
 
 // Fonction pour lire un fichier JSON
-function readJsonFile(filePath) {
-  const data = fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(data);
+async function readJsonFile(url) {
+  const response = await axios.get(url);
+  return response.data;
 }

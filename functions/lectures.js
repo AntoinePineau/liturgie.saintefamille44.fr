@@ -1,5 +1,10 @@
 const lunr = require('lunr');
 
+/** 
+ * Exemple:
+ * https://liturgie.netlify.app/.netlify/functions/lectures?annee=C&temps=Car%C3%AAme&semaine=5&jour=6
+ */
+
 exports.handler = async function (event, context) {
   const { texte, annee, temps, semaine, jour } = event.queryStringParameters;
   if(!texte && !jour && !annee && !temps && !semaine) {
