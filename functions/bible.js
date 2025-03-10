@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const axios = require('axios');
 
 /**
@@ -50,11 +48,7 @@ exports.handler = async function (event, context) {
   // Construire le chemin du fichier JSON du chapitre
   const chapterPath =`/index/bible/${sectionName}/${bookId}/${chapter}.json`;
   console.log(`chapter path : ${chapterPath}`);
-  
-  if (!fs.existsSync(chapterPath)) {
-    return res.status(404).json({ error: 'Chapitre non trouvé' });
-  }
-  
+    
   // Lire le fichier JSON du chapitre
   const chapterData = await readJsonFile(chapterPath);
   
