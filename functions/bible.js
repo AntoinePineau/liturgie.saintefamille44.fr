@@ -1,5 +1,3 @@
-const lunr = require('lunr');
-
 exports.handler = async function (event, context) {
   const { ref } = event.queryStringParameters;
   if(!ref) {
@@ -13,7 +11,7 @@ exports.handler = async function (event, context) {
       })
     };
   }
-  const { bookId, chapter, verseRanges } = parseReference(req.params.reference);
+  const { bookId, chapter, verseRanges } = parseReference(ref);
   console.log(`bookId : ${bookId}, chapter : ${chapter}, verseRanges : ${verseRanges}`);
   
   const books = readJsonFile(path.join(__dirname, '../index/bible/livres.json'));
