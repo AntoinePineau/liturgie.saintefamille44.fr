@@ -23,7 +23,7 @@ exports.handler = async function (event, context) {
   const { bookId, chapter, verseRanges } = parseReference(ref);
   console.log(`bookId : ${bookId}, chapter : ${chapter}, verseRanges : ${verseRanges}`);
   
-  const books = readJsonFile('/index/bible/livres.json');
+  const books = await readJsonFile('/index/bible/livres.json');
   let bookInfo = null;
   let sectionName = '';
   
@@ -56,7 +56,7 @@ exports.handler = async function (event, context) {
   }
   
   // Lire le fichier JSON du chapitre
-  const chapterData = readJsonFile(chapterPath);
+  const chapterData = await readJsonFile(chapterPath);
   
   // Extraire les versets demandés
   const verses = [sectionName !== 'psaumes' ? `${bookInfo.name} –` : `Psaume ${chapter}`];
@@ -103,7 +103,6 @@ function parseReference(reference) {
     bookId = bookIdPart;
   }
   verses = verses.replace(/ |[A-Z]|\(\d+\)/g,'').replace(/^,/, '');
-  console.log(`API bookId : ${bookId}, chapter : ${chapter}, verses : ${verses}`);
   const verseRanges = verses.split(/[.,]/).map(range => {
     range=range.trim();
     if(range.indexOf('-')===-1) {
