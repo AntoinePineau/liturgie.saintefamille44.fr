@@ -117,7 +117,7 @@ function parseReference(reference) {
 
 // Fonction pour lire un fichier JSON
 async function readJsonFile(url) {
-  const response = await axios.get(url);
+  const response = await axios.get(`https://liturgie.netlify.app${url}`);
   console.log(`readJsonFile url : ${url}`);
   return response.data;
 }
