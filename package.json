@@ -16,6 +16,15 @@
     "lint": "next lint",
     "slicemachine": "start-slicemachine"
   },
+  "dependencies": {
+    "@netlify/functions": "^2.5.1",
+    "fs": "0.0.1-security",
+    "lunr": "^2.3.9",
+    "os": "^0.1.2",
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "devDependencies": {
     "browser-sync": "^2.29.3",
     "express": "^4.16.4",
@@ -30,12 +39,9 @@
     "netlify-plugin-lunr-indexer": "^1.0.0-0",
     "puppeteer": "^1.14.0",
     "sass": "^1.63.5",
-    "yargs": "^13.2.2"
-  },
-  "dependencies": {
-    "@netlify/functions": "^2.5.1",
-    "fs": "0.0.1-security",
-    "lunr": "^2.3.9",
-    "os": "^0.1.2"
+    "yargs": "^13.2.2",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
   }
 }
