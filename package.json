@@ -1,47 +1,21 @@
 {
-  "name": "paroisseschateaubriant.fr",
+  "name": "liturgie-saintefamille",
   "version": "1.0.0",
-  "description": "Site pour les paroisses du Pays de Châteaubriant",
-  "main": "index.html",
-  "repository": {
-    "type": "git",
-    "url": "github.com/AntoinePineau/paroisseschateaubriant.fr"
-  },
-  "author": "Antoine Pineau",
-  "license": "ISC",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "slicemachine": "start-slicemachine"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@netlify/functions": "^2.5.1",
-    "fs": "0.0.1-security",
-    "lunr": "^2.3.9",
-    "os": "^0.1.2",
-    "next": "^14.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "next": "14.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.29.3",
-    "express": "^4.16.4",
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-html-extend": "^1.1.6",
-    "gulp-inject-file": "^0.0.19",
-    "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "http-proxy": "^1.17.0",
-    "netlify-plugin-lunr-indexer": "^1.0.0-0",
-    "puppeteer": "^1.14.0",
-    "sass": "^1.63.5",
-    "yargs": "^13.2.2",
-    "tailwindcss": "^3.4.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0"
+    "tailwindcss": "3.3.0",
+    "autoprefixer": "10.4.0",
+    "postcss": "8.4.0"
   }
 }

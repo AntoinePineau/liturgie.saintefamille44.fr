@@ -7,6 +7,17 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
 
   const { tempsLiturgique, anneeLiturgique } = liturgicalData.tempsLiturgique;
 
+  // Ordinaires de messe connus
+  const ordinaires = [
+    'Saint-Boniface',
+    'Saint-François-Xavier', 
+    'Saint-Paul',
+    'San Lorenzo',
+    'Messe de Sainte Cécile',
+    'Messe du Peuple de Dieu',
+    'Ordinaire de la Création'
+  ];
+
   // Suggestions de chants selon le temps liturgique
   const suggestions = {
     'Avent': {
@@ -14,9 +25,12 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
       color: 'purple',
       chants: {
         entree: ['Viens Jésus', 'Préparons le chemin', 'Venir vers Toi'],
-        kyrie: ['Kyrie du temps de l\'Avent'],
+        kyrie: ordinaires,
         gloria: null, // Pas de Gloria en Avent sauf exceptions
         alleluia: ['Alléluia de l\'Avent'],
+        sanctus: ordinaires,
+        anamnese: ordinaires,
+        agnus: ordinaires,
         offertoire: ['Viens Emmanuel', 'Maranatha'],
         communion: ['Pain de la route', 'Viens Seigneur'],
         envoi: ['Allez dire à tous les hommes']
@@ -27,9 +41,12 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
       color: 'yellow',
       chants: {
         entree: ['Il est né le divin enfant', 'Venez divin Messie', 'Peuple fidèle'],
-        kyrie: ['Kyrie de la messe de Noël'],
+        kyrie: ordinaires,
         gloria: ['Gloria de Noël', 'Gloire à Dieu au plus haut des cieux'],
         alleluia: ['Alléluia de Noël'],
+        sanctus: ordinaires,
+        anamnese: ordinaires,
+        agnus: ordinaires,
         offertoire: ['Minuit chrétien', 'Marie a mis au monde'],
         communion: ['Emmanuel Dieu avec nous', 'Il est né pour nous'],
         envoi: ['Allez dire à tous', 'Joy to the world']
@@ -40,9 +57,12 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
       color: 'purple',
       chants: {
         entree: ['Vers toi Seigneur', 'Changez vos cœurs'],
-        kyrie: ['Kyrie du temps du Carême'],
+        kyrie: ordinaires,
         gloria: null, // Pas de Gloria en Carême
         alleluia: null, // Remplacé par acclamation
+        sanctus: ordinaires,
+        anamnese: ordinaires,
+        agnus: ordinaires,
         offertoire: ['Tu es notre Dieu', 'Souviens-toi Seigneur'],
         communion: ['Pain de vie', 'Comme un souffle fragile'],
         envoi: ['Allez dans la paix du Christ']
@@ -53,9 +73,12 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
       color: 'yellow',
       chants: {
         entree: ['Jésus le Christ', 'Alléluia le Seigneur règne', 'Christ est vivant'],
-        kyrie: ['Kyrie pascal'],
+        kyrie: ordinaires,
         gloria: ['Gloria pascal', 'Gloire à Dieu notre Père'],
         alleluia: ['Triple Alléluia', 'Alléluia pascal'],
+        sanctus: ordinaires,
+        anamnese: ordinaires,
+        agnus: ordinaires,
         offertoire: ['Jésus ressuscité', 'Pain rompu pour un monde nouveau'],
         communion: ['Pain de vivants', 'Victoire tu régneras'],
         envoi: ['Alléluia Christ est ressuscité']
@@ -66,9 +89,12 @@ export default function ChantSuggestions({ liturgicalData, onSuggestionApply }) 
       color: 'green',
       chants: {
         entree: ['Peuple de Dieu', 'Rassemblés pour te célébrer'],
-        kyrie: ['Kyrie ordinaire'],
-        gloria: ['Gloria ordinaire'],
+        kyrie: ordinaires,
+        gloria: ordinaires,
         alleluia: ['Alléluia ordinaire'],
+        sanctus: ordinaires,
+        anamnese: ordinaires,
+        agnus: ordinaires,
         offertoire: ['Pain partagé', 'Nous t\'offrons Seigneur'],
         communion: ['Nous formons un même corps', 'Un seul pain'],
         envoi: ['Allez par toute la terre']

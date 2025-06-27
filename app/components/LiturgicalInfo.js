@@ -24,6 +24,21 @@ export default function LiturgicalInfo({ data }) {
     }
   };
 
+  const getCouleurLiturgique = (temps) => {
+    switch (temps) {
+      case 'Avent':
+      case 'Carême':
+        return 'Violet';
+      case 'Noël':
+      case 'Pascal':
+        return 'Blanc';
+      case 'Ordinaire':
+        return 'Vert';
+      default:
+        return 'Vert';
+    }
+  };
+
   return (
     <div className="card">
       <h3 className="text-xl font-semibold mb-4">Informations liturgiques</h3>
@@ -47,13 +62,22 @@ export default function LiturgicalInfo({ data }) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Année liturgique
             </label>
             <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
               Année {tempsLiturgique.anneeLiturgique}
+            </span>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Couleur liturgique
+            </label>
+            <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">
+              {getCouleurLiturgique(tempsLiturgique.tempsLiturgique)}
             </span>
           </div>
 

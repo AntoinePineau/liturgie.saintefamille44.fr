@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import ChantSuggestions from './ChantSuggestions';
+import SearchableSelect from './SearchableSelect';
 
 export default function ChantSelector({ liturgicalData, onChantsChange }) {
   const [chants, setChants] = useState([]);
@@ -71,23 +72,23 @@ export default function ChantSelector({ liturgicalData, onChantsChange }) {
     }));
   };
 
-  const getFilteredChants = (category) => {
-    // Filtrer les chants selon le temps liturgique et la catégorie
-    return chants.filter(chant => {
-      if (!chant.tag || chant.tag.length === 0) return true;
-      
-      // Vérifier si le chant correspond au temps liturgique
-      const temps = liturgicalData?.tempsLiturgique?.tempsLiturgique;
-      if (temps) {
-        const tempsTag = temps.toUpperCase().substring(0, 3);
-        if (chant.tag.includes(tempsTag)) return true;
-      }
-      
-      // Chants génériques (sans tag spécifique)
-      if (chant.tag.includes('GEN')) return true;
-      
-      return true;
-    });
+  const getCategoryFilter = (categoryKey) => {
+    // Mapper les catégories aux filtres appropriés
+    const categoryMap = {
+      'entree': 'EN',
+      'kyrie': 'KYR',
+      'gloria': 'GLO', 
+      'alleluia': 'ALL',
+      'offertoire': 'OFF',
+      'sanctus': 'SAN',
+      'anamnese': 'ANA',
+      'agnus': 'AGN',
+      'communion': 'COM',
+      'marie': 'MAR',
+      'envoi': 'FIN'
+    };
+    
+    return categoryMap[categoryKey] || null;
   };
 
   if (loading) {
@@ -112,8 +113,8 @@ export default function ChantSelector({ liturgicalData, onChantsChange }) {
         
         <div className="space-y-6">
         {categories.map(category => {
-          const filteredChants = getFilteredChants(category.key);
           const selectedChant = selectedChants[category.key];
+          const categoryFilter = getCategoryFilter(category.key);
           
           return (
             <div key={category.key} className="border-b border-gray-200 pb-4 last:border-b-0">
@@ -121,22 +122,14 @@ export default function ChantSelector({ liturgicalData, onChantsChange }) {
                 {category.icon} {category.name}
               </label>
               
-              <select
+              <SearchableSelect
+                options={chants}
                 value={selectedChant?.id || ''}
-                onChange={(e) => {
-                  const chantId = e.target.value;
-                  const chant = filteredChants.find(c => c.id.toString() === chantId);
-                  handleChantSelection(category.key, chant);
-                }}
-                className="input-field w-full"
-              >
-                <option value="">Sélectionner un chant...</option>
-                {filteredChants.map(chant => (
-                  <option key={chant.id} value={chant.id}>
-                    {chant.titre}
-                  </option>
-                ))}
-              </select>
+                onChange={(chant) => handleChantSelection(category.key, chant)}
+                placeholder={`Rechercher un chant ${category.name.toLowerCase()}...`}
+                categoryFilter={categoryFilter}
+                className="w-full"
+              />
               
               {selectedChant && (
                 <div className="mt-2 p-3 bg-gray-50 rounded-lg">

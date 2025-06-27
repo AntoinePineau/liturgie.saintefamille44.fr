@@ -25,7 +25,8 @@ export default function Home() {
         setLiturgicalData(liturgicalInfo);
 
         // Recherche des lectures correspondantes
-        const readingsResponse = await fetch(`/api/lectures?date=${date}&temps=${liturgicalInfo.tempsLiturgique?.tempsLiturgique}&annee=${liturgicalInfo.tempsLiturgique?.anneeLiturgique}`);
+        const tempsInfo = encodeURIComponent(JSON.stringify(liturgicalInfo.tempsLiturgique));
+        const readingsResponse = await fetch(`/api/lectures?date=${date}&temps=${liturgicalInfo.tempsLiturgique?.tempsLiturgique}&annee=${liturgicalInfo.tempsLiturgique?.anneeLiturgique}&tempsInfo=${tempsInfo}`);
         const readingsData = await readingsResponse.json();
         setReadings(readingsData);
       } catch (error) {

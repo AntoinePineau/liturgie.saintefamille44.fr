@@ -24,20 +24,65 @@ export async function GET(request) {
     // Rechercher les lectures correspondantes
     let readings = null;
     
-    // Stratégie de recherche:
-    // 1. Chercher par date exacte
-    // 2. Chercher par temps liturgique et année
-    // 3. Chercher par jour de la semaine et semaine
+    // Stratégie de recherche améliorée:
+    // 1. Chercher par temps liturgique, année et semaine
+    // 2. Chercher par temps liturgique et année seulement
+    // 3. Chercher un dimanche dans le temps liturgique pour les lectures principales
     
-    // Recherche par temps liturgique et année
-    const matchingReadings = lecturesData.filter(lecture => {
-      if (lecture.annee === annee && lecture.temps === temps) {
+    // Extraire le numéro de semaine du calcul liturgique
+    const tempsInfo = searchParams.get('tempsInfo');
+    let semaineLiturgique = null;
+    
+    if (tempsInfo) {
+      try {
+        const info = JSON.parse(tempsInfo);
+        semaineLiturgique = info.numeroSemaine;
+      } catch (e) {
+        console.log('Erreur parsing tempsInfo:', e);
+      }
+    }
+    
+    // Recherche par temps liturgique, année et jour dimanche (plus précis)
+    let matchingReadings = lecturesData.filter(lecture => {
+      if (lecture.annee === annee && lecture.temps === temps && lecture.jour === 6) {
+        // Pour le temps ordinaire, essayer de matcher la semaine
+        if (temps === 'Ordinaire' && semaineLiturgique && typeof semaineLiturgique === 'number') {
+          // Approximation : les lectures suivent un cycle dans le temps ordinaire
+          return Math.abs(lecture.semaine - semaineLiturgique) <= 1;
+        }
         return true;
       }
       return false;
     });
     
-    if (matchingReadings.length > 0) {
+    // Si pas trouvé, recherche plus large
+    if (matchingReadings.length === 0) {
+      matchingReadings = lecturesData.filter(lecture => {
+        return lecture.annee === annee && lecture.temps === temps;
+      });
+    }
+    
+    // Pour le temps ordinaire, essayer de trouver une lecture avec un numéro de semaine proche
+    if (temps === 'Ordinaire' && semaineLiturgique && typeof semaineLiturgique === 'number') {
+      const weekReadings = lecturesData.filter(lecture => {
+        return lecture.annee === annee && 
+               lecture.temps === temps && 
+               lecture.semaine >= semaineLiturgique - 2 && 
+               lecture.semaine <= semaineLiturgique + 2 &&
+               lecture.jour === 6; // Dimanche
+      });
+      
+      if (weekReadings.length > 0) {
+        // Prendre la lecture la plus proche de la semaine
+        readings = weekReadings.reduce((closest, current) => {
+          const closestDiff = Math.abs(closest.semaine - semaineLiturgique);
+          const currentDiff = Math.abs(current.semaine - semaineLiturgique);
+          return currentDiff < closestDiff ? current : closest;
+        });
+      }
+    }
+    
+    if (!readings && matchingReadings.length > 0) {
       // Prendre la première lecture correspondante
       readings = matchingReadings[0];
     }
